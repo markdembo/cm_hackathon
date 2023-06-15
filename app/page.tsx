@@ -4,6 +4,8 @@ import { useState, ChangeEvent, FormEvent } from "react";
 export default function FileUploadForm() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [downloadLink, setDownloadLink] = useState<string | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -21,7 +23,8 @@ export default function FileUploadForm() {
 
       try {
         const response = await fetch(
-          "https://webhook.site/04c7c9ce-2f84-4608-b477-b30a0453740b",
+          "https://backendcm.not-a-single-bug.workers.dev",
+          //"https://webhook.site/04c7c9ce-2f84-4608-b477-b30a0453740b",
           {
             method: "POST",
             body: formData,
@@ -29,7 +32,8 @@ export default function FileUploadForm() {
         );
 
         if (response.ok) {
-          // Handle successful upload
+          const downloadLink = await response.text();
+          setDownloadLink(downloadLink);
           console.log("File uploaded successfully!");
         } else {
           // Handle upload error
@@ -41,6 +45,14 @@ export default function FileUploadForm() {
       }
 
       setIsLoading(false);
+    }
+  };
+
+  const handleCopyLink = () => {
+    if (downloadLink) {
+      navigator.clipboard.writeText(downloadLink);
+      setIsCopied(true);
+      console.log("Download link copied to clipboard!");
     }
   };
 
@@ -72,6 +84,22 @@ export default function FileUploadForm() {
             {isLoading ? "Uploading..." : "Upload"}
           </button>
         </form>
+        {downloadLink && (
+          <div>
+            <label>Download Link:</label>
+            <div className="flex flex-col">
+              <input
+                type="text"
+                value={downloadLink}
+                readOnly
+                className=" bg-gray-300"
+              />
+              <button className="" onClick={handleCopyLink}>
+                {isCopied ? "Copied!" : "Copy to Clipboard"}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
