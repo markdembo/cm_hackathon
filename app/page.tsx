@@ -23,7 +23,7 @@ export default function FileUploadForm() {
 
       try {
         const response = await fetch(
-          "https://devdaysworker.workshop-test-account.workers.dev/",
+          "https://dev-days-cloudflare-workshop-1.workshop-test-account.workers.dev/",
           //"https://webhook.site/04c7c9ce-2f84-4608-b477-b30a0453740b",
           {
             method: "POST",
