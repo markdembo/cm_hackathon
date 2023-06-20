@@ -23,7 +23,7 @@ export default function FileUploadForm() {
 
       try {
         const response = await fetch(
-          "https://erik-devdays2023.workshop-test-account.workers.dev/",
+          "https://flat-darkness-5850.workshop-test-account.workers.dev/",
           {
             method: "POST",
             body: formData,
