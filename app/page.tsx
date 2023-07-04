@@ -6,7 +6,9 @@ export default function FileUploadForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [downloadLink, setDownloadLink] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const [backendURL, setBackendURL] = useState("");
+  const [backendURL, setBackendURL] = useState(
+    "https://backendcm.not-a-single-bug.workers.dev"
+  );
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
